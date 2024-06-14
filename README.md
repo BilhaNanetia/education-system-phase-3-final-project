@@ -1,6 +1,7 @@
 # EDUCATION SYSTEM CLI APPLICATION
-## This is a command-line-interface (CLI) application for managing an education system.It includes basic CRUD operations (Create,Read,Update and Delete) for schools,courses and students, and uses Object-Relational Mapping (ORM) methods to interact with a SQLite database.
-# Requirements
+## Description
+This is a command-line-interface (CLI) application for managing an education system.It includes basic CRUD operations (Create,Read,Update and Delete) for schools,courses and students, and uses Object-Relational Mapping (ORM) methods to interact with a SQLite database.
+## Requirements
 * Python installed
 * SQLite installed
 * Git
