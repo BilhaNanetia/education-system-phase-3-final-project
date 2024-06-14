@@ -5,7 +5,7 @@ class Course:
     """
     Represents a course in the education system.
     """
-    all = {}  # list of all courses
+    all = {}  # Dictionary to store all course instances with their IDs as keys
 
     def __init__(self, title, description, school_id, id=None):
         """
@@ -108,7 +108,7 @@ class Course:
         CURSOR.execute(sql, (self.title, self.description, self.school_id))
         CONN.commit()
         self.id = CURSOR.lastrowid
-        type(self).all[self.id] = self
+        type(self).all[self.id] = self        # Adds the course instance to the all dictionary
 
     @classmethod
     def create(cls, title, description, school_id):
@@ -134,7 +134,7 @@ class Course:
         sql = "DELETE FROM courses WHERE id = ?"
         CURSOR.execute(sql, (self.id,))
         CONN.commit()
-        del type(self).all[self.id]
+        del type(self).all[self.id]       # Removes the course instance from the all dictionary
         self.id = None
 
     @classmethod
@@ -142,7 +142,7 @@ class Course:
         """
         Creates a Course instance from a database row.
         """
-        course = cls.all.get(row[0])
+        course = cls.all.get(row[0])     # Check if the course instance already exists
         if course:
             course.title = row[1]
             course.description = row[2]
@@ -150,7 +150,7 @@ class Course:
         else:
             course = cls(row[1], row[2], row[3])
             course.id = row[0]
-            cls.all[course.id] = course
+            cls.all[course.id] = course       # Adds the course instance to the all dictionary
         return course
 
     @classmethod
@@ -176,7 +176,7 @@ class Course:
         """
         Finds a course by title in the database.
         """
-        sql = "SELECT * FROM courses WHERE title =?"
+        sql = "SELECT * FROM courses WHERE lower(title) = lower(?)"  # Find by title to be case insensitive
         row = CURSOR.execute(sql, (title,)).fetchone()
         return cls.instance_from_db(row) if row else None
 

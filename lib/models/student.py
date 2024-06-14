@@ -5,7 +5,7 @@ class Student:
     """
     Represents a student in the education system.
     """
-    all = {}  # list of all students
+    all = {}  # Dictionary to store all student instances with their IDs as keys
 
     def __init__(self, name, course_id, id=None):
         """
@@ -89,7 +89,7 @@ class Student:
         CURSOR.execute(sql, (self.name, self.course_id))
         CONN.commit()
         self.id = CURSOR.lastrowid
-        type(self).all[self.id] = self
+        type(self).all[self.id] = self     # Adds the student instance to the all dictionary
 
     @classmethod
     def create(cls, name, course_id):
@@ -115,7 +115,7 @@ class Student:
         sql = "DELETE FROM students WHERE id = ?"
         CURSOR.execute(sql, (self.id,))
         CONN.commit()
-        del type(self).all[self.id]
+        del type(self).all[self.id]    # Removes the student instance from the all dictionary
         self.id = None
 
     @classmethod
@@ -123,14 +123,14 @@ class Student:
         """
         Creates a Student instance from a database row.
         """
-        student = cls.all.get(row[0])
+        student = cls.all.get(row[0])     # Check if the student instance already exists
         if student:
             student.name = row[1]
             student.course_id = row[2]
         else:
             student = cls(row[1], row[2])
             student.id = row[0]
-            cls.all[student.id] = student
+            cls.all[student.id] = student     # Adds the student instance to the all dictionary
         return student
 
     @classmethod
@@ -156,6 +156,6 @@ class Student:
         """
         Finds a student by name in the database.
         """
-        sql = "SELECT * FROM students WHERE name = ?"
+        sql = "SELECT * FROM students WHERE lower(name) = lower(?)"   # Find by name to be case insensitive
         row = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_db(row) if row else None

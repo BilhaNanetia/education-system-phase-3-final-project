@@ -200,6 +200,8 @@ def student_menu():
             if student:
                 new_name = input("Enter new name: ")
                 student.name = new_name
+                new_course_id = input("Enter new course ID: ")
+                student.course_id = int(new_course_id)
                 student.update()
                 print("Student updated successfully.")
             else:

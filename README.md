@@ -44,7 +44,7 @@ Contributions are welcome! If you'd like to contribute to the application:
     * Push to the branch
     * Create a pull request
 ## Contact
-If you have any questions or need further assistance, please contact my throuogh my email bilhaleposo@gmail.com
+If you have any questions or need further assistance, please contact me through my email bilhaleposo@gmail.com
 
 
 

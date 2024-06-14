@@ -5,7 +5,7 @@ class School:
     """
     Represents a school in the education system.
     """
-    all = {}  # list of all schools
+    all = {}  # Dictionary to store all school instances  with their IDs as keys
 
     def __init__(self, name, location, id=None):
         """
@@ -87,7 +87,7 @@ class School:
             CURSOR.execute(sql, (self.name, self.location))
             CONN.commit()
             self.id = CURSOR.lastrowid
-            type(self).all[self.id] = self
+            type(self).all[self.id] = self  # Adds the school instance to the all dictionary
         except Exception as e:
             CONN.rollback()
             raise e
@@ -121,8 +121,8 @@ class School:
         try:
             CURSOR.execute(sql, (self.id,))
             CONN.commit()
-            del type(self).all[self.id]
-            self.id = None
+            del type(self).all[self.id]  # Removes the school instance from the all dictionary
+            self.id = None    # Sets the instance's id to None
         except Exception as e:
             CONN.rollback()
             raise e
@@ -133,14 +133,14 @@ class School:
         Creates a School instance from a database row.
         """
         try:
-            school = cls.all.get(row[0])
+            school = cls.all.get(row[0])    # Check if the school instance already exists
             if school:
                 school.name = row[1]
                 school.location = row[2]
             else:
                 school = cls(row[1], row[2])
                 school.id = row[0]
-                cls.all[school.id] = school
+                cls.all[school.id] = school   # Adds the school instance to the all dictionary
             return school
         except Exception as e:
             raise ValueError(f"Invalid data in row: {row}")
@@ -168,7 +168,7 @@ class School:
         """
         Finds a school by name in the database.
         """
-        sql = "SELECT * FROM schools WHERE name =?"
+        sql = "SELECT * FROM schools WHERE lower(name) = lower(?)"   # Find by name to be case insensitive
         row = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_db(row) if row else None
 
