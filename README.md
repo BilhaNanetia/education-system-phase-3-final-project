@@ -19,13 +19,18 @@ This is a command-line-interface (CLI) application for managing an education sys
 
 ## Running the application
 * Fork the repository from github
+    - (https://github.com/BilhaNanetia/phase-3-final-project-python)
 * Clone the repository to your machine
+    - git clone https://github.com/BilhaNanetia/phase-3-final-project-python
 * View the files in the VS Code
-* Run:
-    * pipenv install to create the virtual environment
-    * pipenv shell to enter into the virtual environment and start using the python shell
-    * python lib/config.py to initialize the database and create the tables
-    * python lib/cli.py to run the CLI program
+* To create the virtual environment run:
+    * pipenv install 
+* To enter into the virtual environment and start using the python shell run:
+    * pipenv shell 
+* To initialize the database and create the tables run:
+    * python lib/config.py 
+* To run the CLI program execute the command:
+    * python lib/cli.py 
 * Choose an option from the main menu displayed in the terminal.The application has a menu-driven interface.Users can navigate through the menus by entering the corresponding number.
 * Examples of navigation:
     - Creating a School
